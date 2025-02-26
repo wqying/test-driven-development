@@ -57,6 +57,14 @@ class TestExperiment(unittest.TestCase):
         exp.add_condition(sdt3)
         self.assertAlmostEqual(exp.compute_auc(), 1, places=2)
 
+    def test_plot_roc_curve(self):  # I got help from ChatGPT for this portion
+        exp = Experiment()
+        sdt =  SignalDetection(40, 10, 20, 30)
+        sdt2 = SignalDetection(67, 5, 333, 50)
+        exp.add_condition(sdt)
+        exp.add_condition(sdt2)
+        exp.plot_roc_curve(show_plot=False)
+
 
 if __name__ == "__main__":
     unittest.main()

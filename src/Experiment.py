@@ -61,11 +61,10 @@ class Experiment:
         '''
         # Always remember to unpack a tuple before using the elements inside
         fa, hr = self.sorted_roc_points()  # fa is x axis, hr is y axis
-        plt.plot(fa, hr), marker='o', linestyle='-', label='ROC Curve'
+        plt.plot(fa, hr, marker='o', linestyle='-', label='ROC Curve')
         plt.plot([0, 1], [0, 1], linestyle='--', c='green', label='Chance Level')
         plt.xlabel("False Alarm Rate")
         plt.ylabel("Hit Rate")
         plt.title("ROC Curve")
         plt.legend()
-        if show_plot:
-            plt.show()
+        plt.show()
