@@ -40,7 +40,7 @@ class Experiment:
         # second_element = hit_rates[first_element_indices]
         # Note to self: ^ can't do this because it's only doable for numpy arrays
 
-        return (first_element, second_element)  # returns a tuple
+        return (first_element, second_element)  # returns a tuple of two lists
 
     def compute_auc(self) -> float:
         '''
@@ -50,5 +50,5 @@ class Experiment:
         if len(self.condition) == 0:
             raise ValueError
 
-        auc = np.trapz(self.sorted_roc_points())  # np.trapz directly uses the trapezoidal rule for area calculation
-        return auc
+        fa, hr = self.sorted_roc_points()  # unpacks the tuple returned by sorted_roc_points into two separate lists
+        return np.trapz(hr, fa)  # np.trapz directly uses the trapezoidal rule for area calculation, (y, x)
