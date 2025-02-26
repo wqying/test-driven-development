@@ -31,6 +31,7 @@ class Experiment:
         # We can also use list comprehension:
         # false_alarm_rates = [sdt_obj.false_alarm_rate() for sdt_obj, _ in self.condition]
         first_element = sorted(false_alarm_rates)
+        return first_element
 
 
 
