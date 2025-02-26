@@ -23,14 +23,15 @@ class TestExperiment(unittest.TestCase):
         with self.assertRaises(ValueError):
             exp.sorted_roc_points()
 
-    def test_first_element_sorted_roc_points(self):
+    def test_sorted_roc_points(self):
         exp = Experiment()
         sdt =  SignalDetection(40, 10, 20, 30)
-        sdt2 = SignalDetection(1, 2, 3, 4)
+        sdt2 = SignalDetection(67, 5, 333, 50)
         exp.add_condition(sdt)
         exp.add_condition(sdt2)
         first_element_list = sorted([sdt.false_alarm_rate(), sdt2.false_alarm_rate()])
-        self.assertEqual(exp.sorted_roc_points(), first_element_list)
+        second_element_list = [0.8, 0.9305555555555556]
+        self.assertEqual(exp.sorted_roc_points(), (first_element_list, second_element_list))
 
 
 

@@ -1,5 +1,6 @@
 # Experiment class
 from SignalDetection import SignalDetection
+import numpy as np
 
 class Experiment:
     def __init__(self):
@@ -30,11 +31,13 @@ class Experiment:
             false_alarm_rates.append(sdt_obj.false_alarm_rate())  # Remember that false_alarm_rate() is from SignalDetectionTheory
         # We can also use list comprehension:
         # false_alarm_rates = [sdt_obj.false_alarm_rate() for sdt_obj, _ in self.condition]
-        first_element = sorted(false_alarm_rates)
-        return first_element
+        first_element_indices = np.argsort(false_alarm_rates)  # sorted ascending false_alarm_rates list for hit_rates to use
 
+        hit_rates = [sdt_obj.hit_rate() for sdt_obj, _ in self.condition]
+        first_element = [false_alarm_rates[i] for i in first_element_indices]
+        second_element = [hit_rates[i] for i in first_element_indices]
 
+        # second_element = hit_rates[first_element_indices]
+        # Note to self: ^ can't do this because it's only doable for numpy arrays
 
-
-
-         
+        return first_element, second_element
