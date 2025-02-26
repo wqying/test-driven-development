@@ -1,6 +1,8 @@
 # Experiment class
 from SignalDetection import SignalDetection
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 class Experiment:
     def __init__(self):
@@ -51,4 +53,19 @@ class Experiment:
             raise ValueError
 
         fa, hr = self.sorted_roc_points()  # unpacks the tuple returned by sorted_roc_points into two separate lists
-        return np.trapz(hr, fa)  # np.trapz directly uses the trapezoidal rule for area calculation, (y, x)
+        return np.trapz(hr, fa)  # np.trapz directly uses the trapezoidal rule for area calculation, (y=hr, x=fa)
+
+    def plot_roc_curve(self, show_plot: bool = True):  # I had help from ChatGPT for this part
+        '''
+        Plots the ROC curve
+        '''
+        # Always remember to unpack a tuple before using the elements inside
+        fa, hr = self.sorted_roc_points()  # fa is x axis, hr is y axis
+        plt.plot(fa, hr), marker='o', linestyle='-', label='ROC Curve'
+        plt.plot([0, 1], [0, 1], linestyle='--', c='green', label='Chance Level')
+        plt.xlabel("False Alarm Rate")
+        plt.ylabel("Hit Rate")
+        plt.title("ROC Curve")
+        plt.legend()
+        if show_plot:
+            plt.show()
