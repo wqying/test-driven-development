@@ -18,7 +18,7 @@ class Experiment:
 
     def sorted_roc_points(self) -> tuple[list[float], list[float]]:  # This method was created with the help of ChatGPT
         '''
-        Return sorted false alarm rates and hit rates for plotting the ROC curve
+        Return sorted false alarm rates and hit rates for plotting the ROC (Receiver Operator Characteristic) curve
         '''
         # If no conditions are present, raise ValueError
         if len(self.condition) == 0:
@@ -40,4 +40,15 @@ class Experiment:
         # second_element = hit_rates[first_element_indices]
         # Note to self: ^ can't do this because it's only doable for numpy arrays
 
-        return first_element, second_element
+        return (first_element, second_element)  # returns a tuple
+
+    def compute_auc(self) -> float:
+        '''
+        Computes the Area Under the Curve (AUC) for the stored SDT conditions
+        '''
+        # If no conditions are present, raise ValueError
+        if len(self.condition) == 0:
+            raise ValueError
+
+        auc = np.trapz(self.sorted_roc_points())  # np.trapz directly uses the trapezoidal rule for area calculation
+        return auc
